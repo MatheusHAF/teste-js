@@ -1,0 +1,11 @@
+{
+  "users":[
+    {"id":1,"name":"Matheus Suec","login":"matheus","password":"12345"},
+    {"id":2,"name":"Lucas Pru","login":"Lucas","password":"12345"}
+  ],
+  "tasks":[
+    {"id":1,"title":"task 1","desc":"description for task 1","userid":"1"},
+    {"id":2,"title":"task 2","desc":"description for task 2","userid":"1"},
+    {"id":3,"title":"task 3","desc":"description for task 3","userid":"1"}
+  ]
+}
