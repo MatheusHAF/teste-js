@@ -2,8 +2,8 @@
 import './App.css';
 
 //import components
-import Login from './components/Login';
-import Task from './components/Task';
+import Login from './components/Login/Login';
+import Task from './components/Tasks/Task';
 
 //imports
 import React, { useState } from 'react';
