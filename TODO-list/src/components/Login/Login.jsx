@@ -37,11 +37,11 @@ const Login = ({ onLoginSuccess }) => {
       <h2>Welcome!</h2>
       <form>
         <div>
-          <label htmlfor="login">Login: </label>
+          <label htmlFor="login">Login: </label>
           <input type="text" name="login" id="idlogin" value={login} onChange={(e)=>setLogin(e.target.value)} required/>
         </div>
         <div>
-          <label htmlfor="password">Password: </label>
+          <label htmlFor="password">Password: </label>
           <input type="password" name="password" id="idpassword" value={password} onChange={(e)=>setPassword(e.target.value)} required />
         </div>
           <input type="submit" value="Submit" onClick={verifyuser}/>

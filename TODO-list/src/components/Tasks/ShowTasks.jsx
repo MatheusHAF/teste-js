@@ -24,42 +24,26 @@ const ShowTasks = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  //setando estados
-  const [editing,setEditing] = useState(false)
-  const [titleValue,setTitleValue] = useState('')
-  const [descValue,setDescValue] = useState()
-
-  //funcao para monitorar o input com titulo
-  const changetitle = event=>{
-    setTitleValue(event.target.value)
-  }
-  //funcao para monitorar o input com description
-  const changedesc = event=>{
-    setDescValue(event.target.value)
-  }
-
   return (
     <div>
       {tasks.map((task) => (
         <form key={task.id}>
           <input
             type="text"
-            
-            onChange={changetitle} value={titleValue}
+            value={task.title}
             style={{
               backgroundColor: task.stats === "completed" ? "lightgreen" : "lightgrey",
             }}
           />
           <input
             type="text"
-            
-            onChange={changedesc} value={descValue}
+            value={task.description}
             style={{
               backgroundColor: task.stats === "completed" ? "lightgreen" : "lightgrey",
             }}
           />
           <CompletedTask task={task}/>
-          <EditTask task={task.id,titleValue,descValue} />
+          <EditTask task={task}/>
           <DeleteTask task={task}/>
         </form>
       ))}

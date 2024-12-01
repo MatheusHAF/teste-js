@@ -15,20 +15,21 @@
   ],
   "tasks": [
     {
-      "id": "4b6f",
-      "title": "Trocar bd",
-      "description": "trocar o banco de dados"
-    },
-    {
       "id": "4a0a",
       "title": "funcao completed",
       "description": "criar a funcao para deixar a task completed",
-      "stats": "completed"
+      "stats": "pending"
     },
     {
       "id": "06f6",
       "title": "teste de edicao",
-      "description": "editando essa task"
+      "description": "editando essa task",
+      "stats": "completed"
+    },
+    {
+      "id": "d0e8",
+      "title": "funcao delete",
+      "description": "funcao para deletar a task"
     }
   ]
 }
