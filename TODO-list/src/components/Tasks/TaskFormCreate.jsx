@@ -1,40 +1,38 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { createTask, getTasks} from '../firebase/firebaseFirestoreCRUD';
 
 const TaskFormCreate = () => {
   // estados para armazenar os dados da  task
+  const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
-  // Função para criar a task e enviar para o db
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Previne o recarregamento
+  // Carregar tarefas do Firestore
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const tasksFromDb = await getTasks();
+      setTasks(tasksFromDb);
+    };
 
-    // Cria a task para o bd
-    const newTask = { title, description };
+    fetchTasks();
+  }, []);
 
-    // Envia os dados (POST)
-    fetch("http://localhost:5000/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newTask),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Task criada com sucesso:", data);
-
-        //limpar os campos
-        setTitle('');
-        setDescription('');
-      })
-      .catch((error) => {
-        console.error("Erro ao criar task:", error);
-      });
+  // Função para adicionar uma nova task
+  const handleAddTask = async (e) => {
+    e.preventDefault();
+    if (title && description) {
+      await createTask({ title: title, description: description, completed: false });
+      
+      //resetar os campos
+      setTitle('');
+      setDescription('');
+      const tasksFromDb = await getTasks(); // Recarregar as tarefas
+      setTasks(tasksFromDb);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleAddTask}>
       <input type="text" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
       <input type="text" value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} required />
       <input type="submit" value="📝" />

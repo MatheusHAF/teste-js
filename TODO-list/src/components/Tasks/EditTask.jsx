@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import {getTasks, updateTask, deleteTask, toggleTaskCompletion } from '../firebase/firebaseFirestoreCRUD';
 
 const EditTask = ({task}) => {
   //setando estados
+  const [tasks, setTasks] = useState([]);
   const [editing,setEditing] = useState(false)
   const [titleValue,setTitleValue] = useState(task.title)
   const [descValue,setDescValue] = useState(task.description)
@@ -15,40 +17,17 @@ const EditTask = ({task}) => {
     setDescValue(event.target.value)
   }
 
-  //funcao assicrona para editar os novos valores da Task
-  async function updateTask(taskId,newTitle,newDesc){
-    try{
-
-      //conexao com o bd e atualizando os campos especificos (PATCH)
-      const response = await fetch(`http://localhost:5000/tasks/${task.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: newTitle, // Atualiza o campo `title`
-          description: newDesc, // Atualiza o campo `description`
-        }), 
-      });
-
-      //condicionando a requisicao
-      if (!response.ok) {
-        throw new Error("Erro ao atualizar o status da tarefa");
-      }
-      
-      const updatedTask = await response.json();
-      console.log("Task atualizada:", updatedTask);
-  
-    } catch (error){
-      console.error("Erro ao atualizar o status da tarefa:", error);
-    }
-  }
-
+  // Função para editar uma tarefa
+  const update = async (taskId,titleValue,descValue) => {
+    await updateTask(taskId, { title: titleValue, description: descValue });
+      const tasksFromDb = await getTasks();
+      setTasks(tasksFromDb); // Preenche o campo de descrição
+  };
   //separa as execucoes do botao para editar
   const handleEditTask = (e) =>{
     e.preventDefault();
     if (editing){
-      updateTask(task.id,titleValue,descValue);
+      update(task.id,titleValue,descValue);
     }
     setEditing(!editing);
   }

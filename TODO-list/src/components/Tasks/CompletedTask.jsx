@@ -1,43 +1,33 @@
 import React from 'react'
 import { useEffect,useState } from 'react';
+import { getTasks, toggleTaskCompletion } from '../firebase/firebaseFirestoreCRUD';
 
 const CompletedTask = ({task}) => {
+  const [tasks, setTasks] = useState([]);
 
-  async function ChangeStatsTask(taskid,newStatus){
-    try{
+  // Carregar tarefas do Firestore
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const tasksFromDb = await getTasks();
+      setTasks(tasksFromDb);
+    };
 
-      //conexao com o bd e atualizando os campos especificos (PATCH)
-      const response = await fetch(`http://localhost:5000/tasks/${taskid}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          stats: newStatus, // Atualiza apenas o campo `stats`
-        }), 
-      });
+    fetchTasks();
+  }, []);
 
-      //condicionando a requisicao
-      if (!response.ok) {
-        throw new Error("Erro ao atualizar o status da tarefa");
-      }
-      
-      const updatedTask = await response.json();
-      console.log("Task atualizada:", updatedTask);
-  
-    } catch (error){
-      console.error("Erro ao atualizar o status da tarefa:", error);
-    }
-  }
+  const handleToggleCompletion = async (taskId) => {
+    const taskToToggle = tasks.find((task) => task.id === taskId);
+    await toggleTaskCompletion(taskId, !taskToToggle.completed); // Passa o valor alternado de completed
+    const tasksFromDb = await getTasks();
+    setTasks(tasksFromDb);
+  };
 
   return (
     <button 
       onClick={(e) => { 
         e.preventDefault();
-
-        //alterna entre a task completa ou pendente
-        const newStatus = task.stats === "completed" ? "pending" : "completed";
-        ChangeStatsTask(task.id,newStatus)
+        handleToggleCompletion(task.id)
+        console.log(task)
       }}
         
     >✔️</button>

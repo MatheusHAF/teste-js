@@ -1,53 +1,70 @@
-import React, { useEffect,useState } from 'react'
+// Login.jsx
+import React, { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Auth
+import { firebaseApp } from "../firebase/firebaseConfig"; // Certifique-se de que o caminho está correto
+
 const Login = ({ onLoginSuccess }) => {
+  const [login, setLogin] = useState(""); // Email (login)
+  const [password, setPassword] = useState(""); // Senha
+  const [error, setError] = useState(null); // Para armazenar mensagens de erro
 
-  //setando as infos dos usuarios
-  const [users,setUsers] = useState([]);
-  const [login,setLogin] = useState('');
-  const [password,setPassword] = useState('');
-  
-  //consumindo os dados do banco de dados para realizar login
-  useEffect(()=>{
-    fetch("http://localhost:5000/users")
-      .then((response) => response.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Erro ao buscar dados:", error));
-  }, []);
-  
-  //funcao para testar o bd e site
-  function verifyuser(event){
-    event.preventDefault();//nao recarregar a pagina
+  const auth = getAuth(firebaseApp); // Obtenha a instância do Auth
 
-    // encontrar o usuario no array de usuarios
-    const searchuser = users.find(
-      (user) => user.login === login && user.password === password
-    );
+  const handleLogin = async (event) => {
+    console.log("clicado");
+    event.preventDefault(); // Previne o recarregamento da página
 
-    //condicionar a busca de usuarios
-    if(searchuser){
-      alert("Bem vindo! login realizado");
-      onLoginSuccess();// chamar a funcao de Sucesso no Login
+    console.log("Tentando fazer login com:", login, password); // Adicionando um log para ver os valores digitados
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        login,
+        password
+      );
+
+      console.log("Usuário autenticado:", userCredential.user); // Exibe o usuário autenticado no console
+
+      onLoginSuccess(); // Informa o App que o login foi bem-sucedido
+    } catch (err) {
+      console.error("Erro de login:", err); // Exibe o erro no console
+
+      setError("Credenciais inválidas. Tente novamente.");
     }
-    else{
-      alert("Usuario e/ou senha incorreto(s), tente novamente")
-    }
-  }
+  };
+
   return (
     <div>
       <h2>Welcome!</h2>
-      <form>
+      <form onSubmit={handleLogin}>
         <div>
-          <label htmlFor="login">Login: </label>
-          <input type="text" name="login" id="idlogin" value={login} onChange={(e)=>setLogin(e.target.value)} required/>
+          <label htmlFor="login">Login (Email): </label>
+          <input
+            type="email" // Alterei o tipo para "email" para validação nativa
+            name="login"
+            id="idlogin"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input type="password" name="password" id="idpassword" value={password} onChange={(e)=>setPassword(e.target.value)} required />
+          <input
+            type="password"
+            name="password"
+            id="idpassword"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
-          <input type="submit" value="Submit" onClick={verifyuser}/>
+        <button type="submit">Submit</button>
       </form>
-    </div>
-  )
-}
 
-export default Login
+      {error && <p>{error}</p>}
+    </div>
+  );
+};
+
+export default Login;
