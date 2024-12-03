@@ -5,29 +5,21 @@ import EditTask from "./EditTask";
 import {getTasks} from '../firebase/firebaseFirestoreCRUD';
 
 
-const ShowTasks = () => {
+const ShowTasks = ({signalReload}) => {
   // Estado para armazenar todas tasks
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
+  const fetchTasks = async () => {
+    const tasksFromDb = await getTasks();
+    setTasks(tasksFromDb);
+  };
   // Carregar tarefas do Firestore
   useEffect(() => {
-    // Função para carregar as tarefas
-    const fetchTasks = async () => {
-      const tasksFromDb = await getTasks();
-      setTasks(tasksFromDb);
-    };
-  
     // Carregar as tarefas inicialmente
     fetchTasks();
-  
-    // Recarregar as task
-    const interval = setInterval(() => {
-      fetchTasks(); // Chama fetchTasks a cada 1 segundo
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []); 
+  }, [signalReload]);
 
   return (
     <div>
@@ -51,9 +43,9 @@ const ShowTasks = () => {
               backgroundColor: task.completed === true ? "lightgreen" : "lightgrey",
             }}
           />
-          <CompletedTask task={task}/>
-          <EditTask task={task}/>
-          <DeleteTask task={task}/>
+          <CompletedTask onAction={fetchTasks} task={task}/>
+          <EditTask onAction={fetchTasks} task={task}/>
+          <DeleteTask onAction={fetchTasks} task={task}/>
         </form>
       ))}
     </div>

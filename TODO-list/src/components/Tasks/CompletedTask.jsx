@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect,useState } from 'react';
 import { getTasks, toggleTaskCompletion } from '../firebase/firebaseFirestoreCRUD';
 
-const CompletedTask = ({task}) => {
+const CompletedTask = ({onAction,task}) => {
   const [tasks, setTasks] = useState([]);
 
   // Carregar tarefas do Firestore
@@ -20,6 +20,7 @@ const CompletedTask = ({task}) => {
     await toggleTaskCompletion(taskId, !taskToToggle.completed); // Passa o valor alternado de completed
     const tasksFromDb = await getTasks();
     setTasks(tasksFromDb);
+    onAction();
   };
 
   return (

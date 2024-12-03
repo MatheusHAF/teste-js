@@ -1,7 +1,7 @@
 // Login.jsx
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Auth
-import { firebaseApp } from "../firebase/firebaseConfig"; // Certifique-se de que o caminho está correto
+import { firebaseApp } from "../firebase/firebaseConfig";
 
 const Login = ({ onLoginSuccess }) => {
   const [login, setLogin] = useState(""); // Email (login)
@@ -11,10 +11,7 @@ const Login = ({ onLoginSuccess }) => {
   const auth = getAuth(firebaseApp); // Obtenha a instância do Auth
 
   const handleLogin = async (event) => {
-    console.log("clicado");
     event.preventDefault(); // Previne o recarregamento da página
-
-    console.log("Tentando fazer login com:", login, password); // Adicionando um log para ver os valores digitados
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -40,7 +37,7 @@ const Login = ({ onLoginSuccess }) => {
         <div>
           <label htmlFor="login">Login (Email): </label>
           <input
-            type="email" // Alterei o tipo para "email" para validação nativa
+            type="email"
             name="login"
             id="idlogin"
             value={login}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {getTasks, updateTask, deleteTask, toggleTaskCompletion } from '../firebase/firebaseFirestoreCRUD';
 
-const EditTask = ({task}) => {
+const EditTask = ({onAction,task}) => {
   //setando estados
   const [tasks, setTasks] = useState([]);
   const [editing,setEditing] = useState(false)
@@ -22,6 +22,7 @@ const EditTask = ({task}) => {
     await updateTask(taskId, { title: titleValue, description: descValue });
       const tasksFromDb = await getTasks();
       setTasks(tasksFromDb); // Preenche o campo de descrição
+      onAction();
   };
   //separa as execucoes do botao para editar
   const handleEditTask = (e) =>{

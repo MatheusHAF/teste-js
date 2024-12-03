@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { createTask, getTasks} from '../firebase/firebaseFirestoreCRUD';
 
-const TaskFormCreate = () => {
+const TaskFormCreate = ({onNotifyShowTask}) => {
   // estados para armazenar os dados da  task
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('')
@@ -26,8 +26,8 @@ const TaskFormCreate = () => {
       //resetar os campos
       setTitle('');
       setDescription('');
-      const tasksFromDb = await getTasks(); // Recarregar as tarefas
-      setTasks(tasksFromDb);
+      
+      onNotifyShowTask();//notificar recarregamento
     }
   };
 
