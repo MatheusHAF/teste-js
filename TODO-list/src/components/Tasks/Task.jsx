@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskFormCreate from "./TaskFormCreate";
 import ShowTasks from "./ShowTasks";
 import { getTasks } from "../firebase/firebaseFirestoreCRUD";
@@ -6,7 +6,15 @@ import { getTasks } from "../firebase/firebaseFirestoreCRUD";
 const Task = () => {
   const [tasks, setTasks] = useState([]);
   const [signalReload,setsignalReaload] = useState(false);
-  
+
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    if (!userId) {
+      window.location.href = "../Login/Login.tsx"; // Redireciona para /login
+    }
+  }, [userId]); // Dependência de userId
+
   //funcao para notificar componentes e recarrecar a visualizacao
   const notifyShowTask = () =>{
     setsignalReaload((prev)=>!prev);//alterna os valores

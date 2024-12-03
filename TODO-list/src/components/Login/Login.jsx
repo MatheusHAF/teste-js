@@ -19,10 +19,9 @@ const Login = ({ onLoginSuccess }) => {
         login,
         password
       );
-
-      console.log("Usuário autenticado:", userCredential.user); // Exibe o usuário autenticado no console
-
       onLoginSuccess(); // Informa o App que o login foi bem-sucedido
+      localStorage.setItem("userId", userCredential.user.uid); //armazena o id do usuario
+      //localStorage.setItem("userName", userCredential.user.name); //armazena o id do usuario
     } catch (err) {
       console.error("Erro de login:", err); // Exibe o erro no console
 

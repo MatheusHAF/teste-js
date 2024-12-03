@@ -19,9 +19,10 @@ const TaskFormCreate = ({onNotifyShowTask}) => {
 
   // Função para adicionar uma nova task
   const handleAddTask = async (e) => {
+    const userId = localStorage.getItem("userId");
     e.preventDefault();
     if (title && description) {
-      await createTask({ title: title, description: description, completed: false });
+      await createTask({ title: title, description: description, completed: false,userId: userId});
       
       //resetar os campos
       setTitle('');

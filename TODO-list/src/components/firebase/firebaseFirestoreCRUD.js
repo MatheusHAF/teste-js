@@ -25,7 +25,7 @@ export const updateTask = async (taskId, updatedTask) => {
   const taskRef = doc(db, 'Tasks', taskId);
   try {
     await updateDoc(taskRef, updatedTask);
-    console.log("Tarefa atualizada com ID: ", taskId);
+    //alert("Tarefa atualizada");
   } catch (e) {
     console.error("Erro ao atualizar tarefa: ", e);
   }
@@ -36,7 +36,7 @@ export const deleteTask = async (taskId) => {
   const taskRef = doc(db, 'Tasks', taskId);
   try {
     await deleteDoc(taskRef);
-    console.log("Tarefa deletada com ID: ", taskId);
+    //alert("Tarefa deletada com sucesso");
   } catch (e) {
     console.error("Erro ao deletar tarefa: ", e);
   }
@@ -47,7 +47,7 @@ export const toggleTaskCompletion = async (taskId, completed) => {
   const taskRef = doc(db, 'Tasks', taskId);
   try {
     await updateDoc(taskRef, { completed });
-    console.log("Tarefa alterada: ", taskId);
+    //console.log("Tarefa alterada: ", taskId);
   } catch (e) {
     console.error("Erro ao alternar status de tarefa: ", e);
   }

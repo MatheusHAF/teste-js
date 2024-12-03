@@ -28,7 +28,6 @@ const CompletedTask = ({onAction,task}) => {
       onClick={(e) => { 
         e.preventDefault();
         handleToggleCompletion(task.id)
-        console.log(task)
       }}
         
     >✔️</button>
