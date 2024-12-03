@@ -6,7 +6,7 @@ import {
   toggleTaskCompletion,
 } from "../firebase/firebaseFirestoreCRUD";
 
-const EditTask = ({ onAction, task }) => {
+const EditTask = ({ onAction, task,bloqued }) => {
   //setando estados
   const [tasks, setTasks] = useState([]);
   const [editing, setEditing] = useState(false);
@@ -36,18 +36,19 @@ const EditTask = ({ onAction, task }) => {
       update(task.id, titleValue, descValue);
     }
     setEditing(!editing);
+    bloqued();
   };
   return (
     <>
       {editing ? (
-        <form>
+        <form className="form-editing">
           <input type="text" value={titleValue} onChange={changetitle} />
           <input type="text" value={descValue} onChange={changedesc} />
         </form>
       ) : (
         ""
       )}
-      <button onClick={handleEditTask}>{editing ? "Salvar" : "✏️"}</button>
+      {editing ? <button className="btn-save" onClick={handleEditTask}>Salvar</button>:<button onClick={handleEditTask}>✏️</button> }
     </>
   );
 };

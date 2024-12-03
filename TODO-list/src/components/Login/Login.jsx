@@ -1,7 +1,7 @@
-// Login.jsx
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"; // Import Firebase Auth
 import { firebaseApp } from "../firebase/firebaseConfig";
+import '../Styles/login.css'
 
 const Login = ({ onLoginSuccess }) => {
   const [login, setLogin] = useState(""); // Email (login)
@@ -30,12 +30,13 @@ const Login = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div>
-      <h2>Welcome!</h2>
+    <div className="login-container">
+      <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>
-          <label htmlFor="login">Login (Email): </label>
+          <label htmlFor="login">E-mail: </label>
           <input
+            className="login-input"
             type="email"
             name="login"
             id="idlogin"
@@ -47,6 +48,7 @@ const Login = ({ onLoginSuccess }) => {
         <div>
           <label htmlFor="password">Password: </label>
           <input
+            className="login-input"
             type="password"
             name="password"
             id="idpassword"
@@ -55,7 +57,7 @@ const Login = ({ onLoginSuccess }) => {
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button className="login-btn" type="submit">Sign In</button>
       </form>
 
       {error && <p>{error}</p>}

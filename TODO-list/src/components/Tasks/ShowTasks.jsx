@@ -13,8 +13,13 @@ const ShowTasks = ({signalReload}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const[removeLoading,setRemoveLoading] = useState(false);
+  const[editing,setediting] = useState(false);
   
   const userId = localStorage.getItem("userId");
+
+  const Editing = () =>{
+    setediting((prev)=>!prev);//altenar os valores
+  }
 
   const fetchTasks = async () => {
     const tasksFromDb = await getTasks();
@@ -51,9 +56,9 @@ const ShowTasks = ({signalReload}) => {
               backgroundColor: task.completed === true ? "lightgreen" : "lightgrey",
             }}
           />
-          <CompletedTask onAction={fetchTasks} task={task} />
-          <EditTask onAction={fetchTasks} task={task} />
-          <DeleteTask onAction={fetchTasks} task={task} />
+          {!editing?<CompletedTask onAction={fetchTasks} task={task} />:null}
+          <EditTask onAction={fetchTasks} task={task} bloqued={Editing}/>
+          {!editing?<DeleteTask onAction={fetchTasks} task={task} />:null}
         </form>
       ) : null // Não renderiza nada se não corresponder
     )}

@@ -15,4 +15,7 @@ Esse repositorio consiste em armazenar o codigo refente ao desafio de TODO list
 ## Linha do tempo dos commits de acordo com os requisitos
 - chave do commit requisitos minimos/basicos: _aaeb61f76c9035c52cba4dbb4963dfdec6bf33f8_
 - chave do commit requisitos intermediarios: _57b2392f952af333445dbf03ac91d6f1fbac3c08_
-- chave do commit requisitos avancados: 
+- chave do commit requisitos avancados:
+
+## Link do projeto Deployado
+https://teste-js-two.vercel.app/

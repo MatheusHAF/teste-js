@@ -34,14 +34,10 @@ const TaskFormCreate = ({onNotifyShowTask}) => {
 
   return (
     <form onSubmit={handleAddTask}>
-      <input type="text" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
-      <input type="text" value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} required />
-      <input type="submit" value="📝" />
-      <input type="submit" value="❌" 
-      onClick={()=>{
-        setTitle('');
-        setDescription('')}
-      } />
+      <input className="input-edit" type="text" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} required />
+      <input className="input-edit" type="text" value={description} placeholder="Description" onChange={(e) => setDescription(e.target.value)} required />
+      <input type="submit" value="📝" className="btn-edittask" />
+      <button onClick={()=>{setTitle('');setDescription('')}}>🗑️</button>
     </form>
   );
 };

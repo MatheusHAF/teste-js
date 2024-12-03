@@ -1,0 +1,9 @@
+:root {
+  --primary: #7BAFD4; /* Azul claro para botões principais */
+  --secondary: #FFC107; /* Amarelo suave para ênfase */
+  --background: #F9F9F9; /* Fundo claro */
+  --text-primary: #333333; /* Texto principal */
+  --text-secondary: #666666; /* Texto secundário */
+  --border: #DDDDDD; /* Bordas suaves */
+  --highlight: #DCEFFA; /* Azul pastel claro para hover e foco */
+}

@@ -1,0 +1,56 @@
+@import './pallet.css';
+/* Estilo geral */
+
+.login-container h1 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+/* Botão geral */
+.login-container button {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
+  width: 30%;
+  max-width: 100px;
+}
+.login-container h2{
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-size: 25px;
+}
+
+.login-container button:hover {
+  background-color: var(--highlight);
+  color: var(--text-primary);
+}
+/* Tela de Login */
+.login-container {
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 16px;
+}
+.login-container label{
+  width: 100%;
+  display: flex;
+  text-align: left;
+  align-items: left;
+  justify-content: start;
+  color: var(--text-primary);
+}

@@ -1,8 +1,8 @@
 // App.jsx
-import "./App.css";
 import React, { useState } from "react";
 import Login from "./components/Login/Login";
 import Task from "./components/Tasks/Task";
+import "./components/Styles/app.css"
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -23,11 +23,10 @@ function App() {
       <h1>TODO LIST</h1>
       {userId ? (
         <>
-          <p>Welcome</p>
-          <button onClick={logout}>LOGOUT</button>
+          <button className="logout-btn" onClick={logout}>LOGOUT</button>
         </>
       ) : null}
-      <div>
+      <div className="content">
         {userId ? (
           <Task /> // Exibe a tela de tarefas
         ) : (

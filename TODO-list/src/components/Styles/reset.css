@@ -1,0 +1,52 @@
+/* Resetting all styles to default values */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+/* Ensure all elements are displayed as block by default */
+html, body {
+    height: 100%;
+    display: block;
+    width: 100%;
+}
+
+/* Remove default form styles */
+input, textarea, select, button {
+    background: transparent;
+    border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+}
+
+/* Ensure images and videos are responsive */
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Remove default table styling */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Remove default appearance of links */
+a {
+    text-decoration: none;
+    color: inherit;
+}

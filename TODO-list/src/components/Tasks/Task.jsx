@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TaskFormCreate from "./TaskFormCreate";
 import ShowTasks from "./ShowTasks";
-import { getTasks } from "../firebase/firebaseFirestoreCRUD";
+import '../Styles/task.css'
 
 const Task = () => {
-  const [tasks, setTasks] = useState([]);
   const [signalReload,setsignalReaload] = useState(false);
 
   const userId = localStorage.getItem("userId");
@@ -21,13 +20,12 @@ const Task = () => {
   }
 
   return (
-    <div>
-      <h2>Tasks</h2>
-      <div>
-        <h3>Create new Task</h3>
+    <div className="task-container">
+      <div className="div-newtask">
+        <h3>Create a new Task</h3>
         <TaskFormCreate onNotifyShowTask={notifyShowTask}/>
       </div>
-      <div>
+      <div className="div-showtask">
         <h3>All Tasks</h3>
         <ShowTasks signalReload={signalReload} />
       </div>
